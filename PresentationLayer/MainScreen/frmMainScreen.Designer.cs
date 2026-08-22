@@ -31,10 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainScreen));
             this.btSettings = new Guna.UI2.WinForms.Guna2ImageButton();
             this.pnMenu = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnScreenContainer = new System.Windows.Forms.Panel();
             this.usCommandsScreen1 = new PresentationLayer.MainScreen.usCommandsScreen();
             this.pnMenu.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnScreenContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // btSettings
@@ -64,14 +64,14 @@
             this.pnMenu.Size = new System.Drawing.Size(104, 702);
             this.pnMenu.TabIndex = 1;
             // 
-            // panel1
+            // pnScreenContainer
             // 
-            this.panel1.Controls.Add(this.usCommandsScreen1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(104, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(860, 702);
-            this.panel1.TabIndex = 2;
+            this.pnScreenContainer.Controls.Add(this.usCommandsScreen1);
+            this.pnScreenContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnScreenContainer.Location = new System.Drawing.Point(104, 0);
+            this.pnScreenContainer.Name = "pnScreenContainer";
+            this.pnScreenContainer.Size = new System.Drawing.Size(860, 702);
+            this.pnScreenContainer.TabIndex = 2;
             // 
             // usCommandsScreen1
             // 
@@ -89,16 +89,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(964, 702);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnScreenContainer);
             this.Controls.Add(this.pnMenu);
             this.MinimumSize = new System.Drawing.Size(982, 749);
             this.Name = "frmMainScreen";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BotPlus";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.pnMenu.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.pnScreenContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -107,7 +106,7 @@
 
         private Guna.UI2.WinForms.Guna2ImageButton btSettings;
         private System.Windows.Forms.Panel pnMenu;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnScreenContainer;
         private MainScreen.usCommandsScreen usCommandsScreen1;
     }
 }

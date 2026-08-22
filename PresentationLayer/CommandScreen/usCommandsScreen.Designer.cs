@@ -28,46 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbCommandInputer = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tbCommandBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.btRunCommand = new Guna.UI2.WinForms.Guna2Button();
             this.lbTitle = new System.Windows.Forms.Label();
             this.pnTitles = new System.Windows.Forms.Panel();
             this.lbBotState = new System.Windows.Forms.Label();
-            this.pnCommandControllers = new System.Windows.Forms.Panel();
+            this.pnCommandScreenControllers = new System.Windows.Forms.Panel();
             this.pnCommandsScreenContainer = new Guna.UI2.WinForms.Guna2Panel();
-            this.tbCommandsStateShower = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tbCommandsStatesBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.pnTitles.SuspendLayout();
-            this.pnCommandControllers.SuspendLayout();
+            this.pnCommandScreenControllers.SuspendLayout();
             this.pnCommandsScreenContainer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tbCommandInputer
+            // tbCommandBox
             // 
-            this.tbCommandInputer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tbCommandBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCommandInputer.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(194)))), ((int)(((byte)(183)))));
-            this.tbCommandInputer.BorderRadius = 10;
-            this.tbCommandInputer.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbCommandInputer.DefaultText = "";
-            this.tbCommandInputer.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.tbCommandInputer.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.tbCommandInputer.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.tbCommandInputer.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.tbCommandInputer.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(25)))));
-            this.tbCommandInputer.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbCommandInputer.Font = new System.Drawing.Font("Segoe UI", 13.8F);
-            this.tbCommandInputer.ForeColor = System.Drawing.Color.Gainsboro;
-            this.tbCommandInputer.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbCommandInputer.Location = new System.Drawing.Point(19, 47);
-            this.tbCommandInputer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tbCommandInputer.Name = "tbCommandInputer";
-            this.tbCommandInputer.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(133)))));
-            this.tbCommandInputer.PlaceholderText = "Type Command\r\n";
-            this.tbCommandInputer.SelectedText = "";
-            this.tbCommandInputer.Size = new System.Drawing.Size(608, 47);
-            this.tbCommandInputer.TabIndex = 1;
-            this.tbCommandInputer.TextChanged += new System.EventHandler(this.guna2TextBox1_TextChanged);
+            this.tbCommandBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(194)))), ((int)(((byte)(183)))));
+            this.tbCommandBox.BorderRadius = 10;
+            this.tbCommandBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbCommandBox.DefaultText = "";
+            this.tbCommandBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tbCommandBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tbCommandBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbCommandBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbCommandBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(25)))));
+            this.tbCommandBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbCommandBox.Font = new System.Drawing.Font("Segoe UI", 13.8F);
+            this.tbCommandBox.ForeColor = System.Drawing.Color.Gainsboro;
+            this.tbCommandBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbCommandBox.Location = new System.Drawing.Point(19, 47);
+            this.tbCommandBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbCommandBox.Name = "tbCommandBox";
+            this.tbCommandBox.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(133)))));
+            this.tbCommandBox.PlaceholderText = "Type Command\r\n";
+            this.tbCommandBox.SelectedText = "";
+            this.tbCommandBox.Size = new System.Drawing.Size(608, 47);
+            this.tbCommandBox.TabIndex = 1;
             // 
             // btRunCommand
             // 
@@ -89,7 +88,6 @@
             this.btRunCommand.Size = new System.Drawing.Size(122, 47);
             this.btRunCommand.TabIndex = 2;
             this.btRunCommand.Text = "Run";
-            this.btRunCommand.Click += new System.EventHandler(this.guna2Button1_Click_1);
             // 
             // lbTitle
             // 
@@ -126,52 +124,51 @@
             this.lbBotState.TabIndex = 4;
             this.lbBotState.Text = "Bot Stopped";
             // 
-            // pnCommandControllers
+            // pnCommandScreenControllers
             // 
-            this.pnCommandControllers.Controls.Add(this.tbCommandInputer);
-            this.pnCommandControllers.Controls.Add(this.btRunCommand);
-            this.pnCommandControllers.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnCommandControllers.Location = new System.Drawing.Point(0, 479);
-            this.pnCommandControllers.Name = "pnCommandControllers";
-            this.pnCommandControllers.Size = new System.Drawing.Size(769, 141);
-            this.pnCommandControllers.TabIndex = 5;
+            this.pnCommandScreenControllers.Controls.Add(this.tbCommandBox);
+            this.pnCommandScreenControllers.Controls.Add(this.btRunCommand);
+            this.pnCommandScreenControllers.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnCommandScreenControllers.Location = new System.Drawing.Point(0, 479);
+            this.pnCommandScreenControllers.Name = "pnCommandScreenControllers";
+            this.pnCommandScreenControllers.Size = new System.Drawing.Size(769, 141);
+            this.pnCommandScreenControllers.TabIndex = 5;
             // 
             // pnCommandsScreenContainer
             // 
-            this.pnCommandsScreenContainer.Controls.Add(this.tbCommandsStateShower);
+            this.pnCommandsScreenContainer.Controls.Add(this.tbCommandsStatesBox);
             this.pnCommandsScreenContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnCommandsScreenContainer.Location = new System.Drawing.Point(0, 78);
             this.pnCommandsScreenContainer.Name = "pnCommandsScreenContainer";
             this.pnCommandsScreenContainer.Size = new System.Drawing.Size(769, 401);
             this.pnCommandsScreenContainer.TabIndex = 6;
             // 
-            // tbCommandsStateShower
+            // tbCommandsStatesBox
             // 
-            this.tbCommandsStateShower.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tbCommandsStatesBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCommandsStateShower.BackColor = System.Drawing.Color.Transparent;
-            this.tbCommandsStateShower.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(194)))), ((int)(((byte)(183)))));
-            this.tbCommandsStateShower.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbCommandsStateShower.DefaultText = "";
-            this.tbCommandsStateShower.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.tbCommandsStateShower.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.tbCommandsStateShower.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.tbCommandsStateShower.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.tbCommandsStateShower.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(25)))));
-            this.tbCommandsStateShower.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbCommandsStateShower.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.tbCommandsStateShower.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbCommandsStateShower.Location = new System.Drawing.Point(19, 7);
-            this.tbCommandsStateShower.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tbCommandsStateShower.Multiline = true;
-            this.tbCommandsStateShower.Name = "tbCommandsStateShower";
-            this.tbCommandsStateShower.PlaceholderText = "";
-            this.tbCommandsStateShower.ReadOnly = true;
-            this.tbCommandsStateShower.SelectedText = "";
-            this.tbCommandsStateShower.Size = new System.Drawing.Size(736, 394);
-            this.tbCommandsStateShower.TabIndex = 0;
-            this.tbCommandsStateShower.TextChanged += new System.EventHandler(this.tbCommands_TextChanged);
+            this.tbCommandsStatesBox.BackColor = System.Drawing.Color.Transparent;
+            this.tbCommandsStatesBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(194)))), ((int)(((byte)(183)))));
+            this.tbCommandsStatesBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbCommandsStatesBox.DefaultText = "";
+            this.tbCommandsStatesBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tbCommandsStatesBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tbCommandsStatesBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbCommandsStatesBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbCommandsStatesBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(25)))));
+            this.tbCommandsStatesBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbCommandsStatesBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tbCommandsStatesBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbCommandsStatesBox.Location = new System.Drawing.Point(19, 7);
+            this.tbCommandsStatesBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbCommandsStatesBox.Multiline = true;
+            this.tbCommandsStatesBox.Name = "tbCommandsStatesBox";
+            this.tbCommandsStatesBox.PlaceholderText = "";
+            this.tbCommandsStatesBox.ReadOnly = true;
+            this.tbCommandsStatesBox.SelectedText = "";
+            this.tbCommandsStatesBox.Size = new System.Drawing.Size(736, 394);
+            this.tbCommandsStatesBox.TabIndex = 0;
             // 
             // usCommandsScreen
             // 
@@ -179,27 +176,26 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(21)))));
             this.Controls.Add(this.pnCommandsScreenContainer);
-            this.Controls.Add(this.pnCommandControllers);
+            this.Controls.Add(this.pnCommandScreenControllers);
             this.Controls.Add(this.pnTitles);
             this.Name = "usCommandsScreen";
             this.Size = new System.Drawing.Size(769, 620);
-            this.Load += new System.EventHandler(this.usCommandsScreen_Load);
             this.pnTitles.ResumeLayout(false);
             this.pnTitles.PerformLayout();
-            this.pnCommandControllers.ResumeLayout(false);
+            this.pnCommandScreenControllers.ResumeLayout(false);
             this.pnCommandsScreenContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private Guna.UI2.WinForms.Guna2TextBox tbCommandInputer;
+        private Guna.UI2.WinForms.Guna2TextBox tbCommandBox;
         private Guna.UI2.WinForms.Guna2Button btRunCommand;
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.Panel pnTitles;
         private System.Windows.Forms.Label lbBotState;
-        private System.Windows.Forms.Panel pnCommandControllers;
+        private System.Windows.Forms.Panel pnCommandScreenControllers;
         private Guna.UI2.WinForms.Guna2Panel pnCommandsScreenContainer;
-        private Guna.UI2.WinForms.Guna2TextBox tbCommandsStateShower;
+        private Guna.UI2.WinForms.Guna2TextBox tbCommandsStatesBox;
     }
 }

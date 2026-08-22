@@ -17,29 +17,6 @@ namespace PresentationLayer.MainScreen
             InitializeComponent();
         }
 
-        private void tbCommands_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void usCommandsScreen_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
+    
     }
 }
