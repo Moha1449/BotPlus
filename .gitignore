@@ -1,0 +1,57 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+*.rsuser
+
+# Build
+**/bin/
+**/obj/
+[Dd]ebug/
+[Rr]elease/
+
+# NuGet
+**/packages/
+*.nupkg
+*.snupkg
+
+# Compiled files
+*.dll
+*.exe
+*.pdb
+*.ilk
+
+# Logs
+*.log
+
+# Test results
+TestResults/
+*.trx
+
+# Local databases
+*.mdf
+*.ldf
+*.ndf
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper*
+*.DotSettings.user
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
