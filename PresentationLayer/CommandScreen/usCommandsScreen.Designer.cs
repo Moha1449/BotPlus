@@ -88,6 +88,7 @@
             this.btRunCommand.Size = new System.Drawing.Size(122, 47);
             this.btRunCommand.TabIndex = 2;
             this.btRunCommand.Text = "Run";
+            this.btRunCommand.Click += new System.EventHandler(this.btRunCommand_Click);
             // 
             // lbTitle
             // 
@@ -158,7 +159,7 @@
             this.tbCommandsStatesBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.tbCommandsStatesBox.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(26)))), ((int)(((byte)(25)))));
             this.tbCommandsStatesBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbCommandsStatesBox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tbCommandsStatesBox.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbCommandsStatesBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbCommandsStatesBox.Location = new System.Drawing.Point(19, 7);
             this.tbCommandsStatesBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -166,6 +167,7 @@
             this.tbCommandsStatesBox.Name = "tbCommandsStatesBox";
             this.tbCommandsStatesBox.PlaceholderText = "";
             this.tbCommandsStatesBox.ReadOnly = true;
+            this.tbCommandsStatesBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbCommandsStatesBox.SelectedText = "";
             this.tbCommandsStatesBox.Size = new System.Drawing.Size(736, 394);
             this.tbCommandsStatesBox.TabIndex = 0;

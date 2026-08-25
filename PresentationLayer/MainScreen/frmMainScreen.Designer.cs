@@ -47,16 +47,16 @@
             this.btSettings.Image = ((System.Drawing.Image)(resources.GetObject("btSettings.Image")));
             this.btSettings.ImageOffset = new System.Drawing.Point(0, 0);
             this.btSettings.ImageRotate = 0F;
-            this.btSettings.Location = new System.Drawing.Point(-3, 582);
+            this.btSettings.Location = new System.Drawing.Point(-3, 584);
             this.btSettings.Name = "btSettings";
             this.btSettings.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btSettings.Size = new System.Drawing.Size(102, 84);
+            this.btSettings.Size = new System.Drawing.Size(104, 84);
             this.btSettings.TabIndex = 0;
+            
             // 
             // pnMenu
             // 
-            this.pnMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(138)))), ((int)(((byte)(221)))));
-            this.pnMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnMenu.BackColor = System.Drawing.Color.Black;
             this.pnMenu.Controls.Add(this.btSettings);
             this.pnMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnMenu.Location = new System.Drawing.Point(0, 0);
@@ -76,13 +76,13 @@
             // usCommandsScreen1
             // 
             this.usCommandsScreen1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(21)))), ((int)(((byte)(21)))));
-            this.usCommandsScreen1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.usCommandsScreen1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usCommandsScreen1.Location = new System.Drawing.Point(0, 0);
             this.usCommandsScreen1.MinimumSize = new System.Drawing.Size(819, 661);
             this.usCommandsScreen1.Name = "usCommandsScreen1";
             this.usCommandsScreen1.Size = new System.Drawing.Size(860, 702);
             this.usCommandsScreen1.TabIndex = 0;
+           
             // 
             // frmMainScreen
             // 
