@@ -98,7 +98,6 @@ namespace BusinessLayer.Commands
             return GetResult;
         }
 
-
         public static async  Task<clsReturnResult> GetBotData()
         {
             if (!_IsBotRunning)
@@ -111,6 +110,22 @@ namespace BusinessLayer.Commands
                     $"[Name : {BotData.BotName}] [Description : {BotData.BotDescription}].");
 
             return GetResult;
+        }
+      
+        internal static async  Task<clsReturnResult> RunTheChatsHandlerEngine()
+        {
+            if (!_IsBotRunning)
+                return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected.");
+
+            return await _Bot.RunChatsHandlerEngine();
+        }
+
+        internal static async Task<clsReturnResult> CloseTheChatsHandlerEngine()
+        {
+            if (!_IsBotRunning)
+                return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected.");
+
+            return await _Bot.CloseChatsHandlerEngine();
         }
     }
 }

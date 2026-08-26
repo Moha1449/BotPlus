@@ -24,6 +24,10 @@ namespace BusinessLayer.Commands
                     return await clsCommandsController.GetBotData();
                 case "bot -s":
                     return  clsCommandsController.BotStatus();
+                case "chat -s":
+                    return await clsCommandsController.RunTheChatsHandlerEngine();
+                case "chat -c":
+                    return await clsCommandsController.CloseTheChatsHandlerEngine();
                 default:
                     return new clsReturnResult(clsReturnResult.enResult.Error, "Command is undefined.");
             }
