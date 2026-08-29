@@ -1,5 +1,6 @@
-﻿using BusinessLayer.DTOs.Messages;
+﻿using BusinessLayer.DataModels;
 using BusinessLayer.ErrorHandler;
+using BusinessLayer.AppStorage.FileResults;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.AppStorage.Messages
 {
-    class clsInLineMessagesStorage
+    internal static class clsChatsTemplatesStorage
     {
-        private static string _InLineMessagesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InLinesMessages.json");
+        private static string _InLineMessagesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ChatsTemplates.json");
 
-        internal async Task<(clsFileResults.enFileResult, List<clsInLineChat>)> GetInLinesMessages()
+        internal static async Task<(clsFileResults.enFileResult, IEnumerable<clsChatTemplate>)> GetChatsTemplatesAsString()
         {
             try
             {
@@ -24,15 +25,15 @@ namespace BusinessLayer.AppStorage.Messages
 
                 using (FileStream Chat = File.OpenRead(_InLineMessagesFilePath))
                 {
-                    List<clsInLineChat> Chats = new List<clsInLineChat>();
+                    List<clsChatTemplate> Chats = new List<clsChatTemplate>();
 
                     using (StreamReader Reader = new StreamReader(Chat))
                     {
                         string Line = string.Empty;
 
-                        while ((Line = await Reader.ReadToEndAsync()) != null)
+                        while ((Line = await Reader.ReadLineAsync()) != null)
                         {
-                            Chats.Add(JsonConvert.DeserializeObject<clsInLineChat>(Line));
+                            Chats.Add(JsonConvert.DeserializeObject<clsChatTemplate>(Line));
                         }
                     }
 
@@ -50,7 +51,7 @@ namespace BusinessLayer.AppStorage.Messages
         }
 
 
-        internal async Task<clsFileResults.enFileResult> AddNewInLineChat(clsInLineChat Chat)
+        internal static async Task<clsFileResults.enFileResult> AddChatTemplate(clsChatTemplate Chat)
         {
             try
             {
@@ -77,7 +78,5 @@ namespace BusinessLayer.AppStorage.Messages
                 return clsFileResults.enFileResult.Error;
             }
         }
-
-
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.AppStorage
+namespace BusinessLayer.AppStorage.FileResults
 {
-    internal abstract class clsFileResults
+    internal static class clsFileResults
     { 
         internal enum enFileResult {Success,Error,InvalidInputs,NotExist,Empty}
     }

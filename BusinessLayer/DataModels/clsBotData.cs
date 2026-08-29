@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.BotData
+namespace BusinessLayer.DataModels
 {
-    internal class clsBotData
+    public class clsBotData
     {
         internal string BotName { get; set; }
 

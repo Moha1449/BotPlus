@@ -1,4 +1,4 @@
-﻿using BusinessLayer.BotData;
+﻿using BusinessLayer.DataModels;
 using BusinessLayer.ErrorHandler;
 using BusinessLayer.ReturnResult;
 using System;
@@ -8,29 +8,27 @@ using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 
-namespace BusinessLayer.RequestsHandling
+namespace BusinessLayer.BotEngine
 {
     internal class clsBotClient
     {
-        private TelegramBotClient _ClientBot { get; set; }
+        internal TelegramBotClient ClientBot { get; private set; }
 
         private CancellationTokenSource _BotCancelerToken { get; set; }
-
-        private CancellationTokenSource _ChatsHandersCancelerToken { get; set; }
 
 
         internal clsBotClient(string Key)
         {
-            _ClientBot = new TelegramBotClient(Key);
+            ClientBot = new TelegramBotClient(Key);
             _BotCancelerToken = new CancellationTokenSource();
-            _ChatsHandersCancelerToken = new CancellationTokenSource();
+
         }
 
-        internal async Task<clsReturnResult> Run()
+        internal async Task<clsReturnResult> ConnectTheBot()
         {
             try
             {
-                await _ClientBot.GetMeAsync(_BotCancelerToken.Token);
+                await ClientBot.GetMeAsync(_BotCancelerToken.Token);
                 return new clsReturnResult(clsReturnResult.enResult.Success, "Bot is connected.");
             }
             catch (ApiRequestException ex)
@@ -41,19 +39,15 @@ namespace BusinessLayer.RequestsHandling
         }
 
 
-        internal async Task<clsReturnResult> Close()
+        internal async Task<clsReturnResult> CloseConnection()
         {
-            if (_ClientBot == null)
+            if (ClientBot == null)
                 return new clsReturnResult(clsReturnResult.enResult.BotNotFound, "Bot is not found.");
 
             try
             {
                 _BotCancelerToken.Cancel();
                 _BotCancelerToken.Dispose();
-
-                //If bot is closed stope handlings messages
-                _ChatsHandersCancelerToken?.Cancel();
-                _ChatsHandersCancelerToken?.Dispose();
 
                 return new clsReturnResult(clsReturnResult.enResult.Success, "Bot is stopped.");
             }
@@ -70,9 +64,9 @@ namespace BusinessLayer.RequestsHandling
             {
                 var BotData = new clsBotData
                 {
-                    BotDescription = (await _ClientBot.GetMyDescriptionAsync()).Description
+                    BotDescription = (await ClientBot.GetMyDescriptionAsync()).Description
                     ,
-                    BotName = (await _ClientBot.GetMyNameAsync()).Name
+                    BotName = (await ClientBot.GetMyNameAsync()).Name
                 };
 
                 return (new clsReturnResult(clsReturnResult.enResult.Success), BotData);
@@ -89,7 +83,7 @@ namespace BusinessLayer.RequestsHandling
         {
             try
             {
-                var BotCommands = await _ClientBot.GetMyCommandsAsync();
+                var BotCommands = await ClientBot.GetMyCommandsAsync();
                 return (new clsReturnResult(clsReturnResult.enResult.Success), BotCommands);
             }
             catch (ApiRequestException ex)
@@ -97,41 +91,6 @@ namespace BusinessLayer.RequestsHandling
                 await clsErrorLogger.LogErrorAsync($"{ex.Message}");
                 return (new clsReturnResult(clsReturnResult.enResult.Error, ex.Message), null);
             }
-        }
-
-        private void _RenewChatsHandlers()
-        {
-            _ChatsHandersCancelerToken = new CancellationTokenSource();
-        }
-
-        internal async Task<clsReturnResult> RunChatsHandlerEngine()
-        {
-            if (_ClientBot == null)
-                return new clsReturnResult(clsReturnResult.enResult.BotNotFound, "Bot is not found.");
-
-             return  await clsChatsHandlerEngine.StartHandler
-                     (this._ClientBot, _ChatsHandersCancelerToken.Token);
-        }
-
-
-        internal async Task<clsReturnResult> CloseChatsHandlerEngine()
-        {
-            try
-            {
-                _ChatsHandersCancelerToken.Cancel();
-                _ChatsHandersCancelerToken.Dispose();
-
-                //After closing the chats handler renew the cancelation source to make user able to run it again
-                _RenewChatsHandlers();
-
-                return new clsReturnResult(clsReturnResult.enResult.Success, "Chats Engine is stopped.");
-            }
-            catch (ApiRequestException ex)
-            {
-                await clsErrorLogger.LogErrorAsync(ex.Message);
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Error : " + ex.Message);
-            }
-
         }
     }
 }

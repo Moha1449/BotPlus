@@ -57,18 +57,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppStorage\Messages\clsInLineMessagesStorage.cs" />
+    <Compile Include="AppStorage\clsAppStorage.cs" />
+    <Compile Include="AppStorage\Messages\clsChatsTemplatesStoarge.cs" />
     <Compile Include="Commands\clsCommandTranslator.cs" />
     <Compile Include="AppStorage\ConnectionConfig\clsConnectionConfiguration.cs" />
-    <Compile Include="AppStorage\clsFileResults.cs" />
-    <Compile Include="DTOs\Bot\clsBotData.cs" />
-    <Compile Include="DTOs\Connection\clsConnection.cs" />
-    <Compile Include="Commands\clsCommandsController.cs" />
-    <Compile Include="DTOs\Messages\clsInLineChat.cs" />
+    <Compile Include="AppStorage\FileResults\clsFileResults.cs" />
+    <Compile Include="DataModels\clsBotData.cs" />
+    <Compile Include="DataModels\clsConnection.cs" />
+    <Compile Include="BotEngine\clsBotEngine.cs" />
+    <Compile Include="DataModels\clsChatTemplate.cs" />
     <Compile Include="ErrorHandler\clsErrorLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestsHandling\clsBotClient.cs" />
-    <Compile Include="RequestsHandling\clsChatsHandlers.cs" />
+    <Compile Include="BotEngine\clsBotClient.cs" />
+    <Compile Include="BotEngine\clsChatsHandlerEngine.cs" />
     <Compile Include="ReturnResult\clsReturnResult.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using BusinessLayer.AppStorage;
+﻿using BusinessLayer.AppStorage.FileResults;
 using System;
 
 namespace BusinessLayer.ReturnResult
@@ -25,13 +25,13 @@ namespace BusinessLayer.ReturnResult
             switch (Result)
             {
                 case clsFileResults.enFileResult.NotExist:
-                    return new clsReturnResult(enResult.Error, "The Configuration file is not found.");
+                    return new clsReturnResult(enResult.Error, "The file is not found.");
                 case clsFileResults.enFileResult.InvalidInputs:
                     return new clsReturnResult(enResult.Error, "Invalid date");
                 case clsFileResults.enFileResult.Empty:
-                    return new clsReturnResult(enResult.Error, "The Configuration file is empty.");
+                    return new clsReturnResult(enResult.Error, "The file is empty.");
                 case clsFileResults.enFileResult.Success:
-                    return new clsReturnResult(enResult.Success);
+                    return new clsReturnResult(enResult.Success,"The operation was succussed.");
                 default:
                     return new clsReturnResult(enResult.Error, "Unknown Error.");
             }

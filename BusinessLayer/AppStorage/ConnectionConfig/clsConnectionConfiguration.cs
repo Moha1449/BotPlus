@@ -1,13 +1,14 @@
-﻿using BusinessLayer.BotData;
+﻿using BusinessLayer.DataModels;
 using BusinessLayer.ErrorHandler;
 using Newtonsoft.Json;
 using System;
+using BusinessLayer.AppStorage.FileResults;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.AppStorage
+namespace BusinessLayer.AppStorage.ConnectionConfiguration
 {
-    internal abstract class clsConnectionConfiguration
+    internal static class clsConnectionConfiguration
     {
         private static string _ConnectionConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ConnectionConfig.json");
 
