@@ -143,6 +143,10 @@ namespace BusinessLayer.BotEngine
 
                 return new clsReturnResult(clsReturnResult.enResult.Success, "The messages loaded successfully.");
             }
+            catch (OperationCanceledException)
+            {
+                return new clsReturnResult(clsReturnResult.enResult.Success,"The Handler is stopped.");
+            }
             catch (Exception ex)
             {
                 await clsErrorLogger.LogErrorAsync(ex.Message);

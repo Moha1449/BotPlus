@@ -9,8 +9,8 @@ using Telegram.Bot.Exceptions;
 
 namespace BusinessLayer.BotEngine
 {
-     public static class clsBotEngine
-     {
+    public static class clsBotEngine
+    {
 
         private static clsBotClient _Bot = null;
 
@@ -56,10 +56,19 @@ namespace BusinessLayer.BotEngine
             _IsBotRunning = false;
         }
 
-       public static async Task<clsReturnResult> Close()
+
+        public static async Task<clsReturnResult> Close()
         {
             if (_Bot == null)
                 return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected");
+
+            if (_HandlerEngine != null && _HandlerEngine.IsEngineRunning)
+            {
+                _CancelChatsEngineSource?.Cancel();
+                _CancelChatsEngineSource?.Dispose();
+
+                _RenewChatsHandlers();
+            }
 
             var CloseResult = await _Bot.CloseConnection();
             _ResetBot();
@@ -121,6 +130,7 @@ namespace BusinessLayer.BotEngine
         private static void _RenewChatsHandlers()
         {
             _CancelChatsEngineSource = new CancellationTokenSource();
+            _HandlerEngine = null;
         }
 
         internal static async Task<clsReturnResult> RunTheChatsHandlerEngine()
@@ -146,16 +156,13 @@ namespace BusinessLayer.BotEngine
 
         internal static async Task<clsReturnResult> CloseTheChatsHandlerEngine()
         {
-            if (!_IsBotRunning)
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected.");
-
-            if (_HandlerEngine == null || !_HandlerEngine.IsEngineRunning)
+            if (_HandlerEngine == null || !_HandlerEngine.IsEngineRunning || !_IsBotRunning)
                 return new clsReturnResult(clsReturnResult.enResult.Error, "Chats handler engine is off.");
 
             try
             {
-                _CancelChatsEngineSource.Cancel();
-                _CancelChatsEngineSource.Dispose();
+                _CancelChatsEngineSource?.Cancel();
+                _CancelChatsEngineSource?.Dispose();
 
                 //After closing the chats handler renew the cancelation source to make user able to run it again
                 _RenewChatsHandlers();

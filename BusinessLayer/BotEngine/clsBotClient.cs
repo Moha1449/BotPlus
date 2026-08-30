@@ -46,8 +46,8 @@ namespace BusinessLayer.BotEngine
 
             try
             {
-                _BotCancelerToken.Cancel();
-                _BotCancelerToken.Dispose();
+                _BotCancelerToken?.Cancel();
+                _BotCancelerToken?.Dispose();
 
                 return new clsReturnResult(clsReturnResult.enResult.Success, "Bot is stopped.");
             }
@@ -64,9 +64,9 @@ namespace BusinessLayer.BotEngine
             {
                 var BotData = new clsBotData
                 {
-                    BotDescription = (await ClientBot.GetMyDescriptionAsync()).Description
+                    BotDescription = (await ClientBot.GetMyDescriptionAsync(null,_BotCancelerToken.Token)).Description
                     ,
-                    BotName = (await ClientBot.GetMyNameAsync()).Name
+                    BotName = (await ClientBot.GetMyNameAsync(null,_BotCancelerToken.Token)).Name
                 };
 
                 return (new clsReturnResult(clsReturnResult.enResult.Success), BotData);
@@ -83,7 +83,7 @@ namespace BusinessLayer.BotEngine
         {
             try
             {
-                var BotCommands = await ClientBot.GetMyCommandsAsync();
+                var BotCommands = await ClientBot.GetMyCommandsAsync(null,null,_BotCancelerToken.Token);
                 return (new clsReturnResult(clsReturnResult.enResult.Success), BotCommands);
             }
             catch (ApiRequestException ex)

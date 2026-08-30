@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace BusinessLayer.AppStorage
 {
     public static class clsAppStorage
@@ -78,7 +79,10 @@ namespace BusinessLayer.AppStorage
             return clsReturnResult.FileReturnResultMaker(FileState);
         }
 
-
-
+        public static async Task<clsReturnResult> DeleteChatTemplateByID(string ID)
+        {
+            return clsReturnResult.FileReturnResultMaker
+                ( await clsChatsTemplatesStorage.DeleteChatTemplateByID(ID));
+        }
     }
 }

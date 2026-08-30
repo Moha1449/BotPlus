@@ -24,7 +24,7 @@ namespace BusinessLayer.ReturnResult
         {
             switch (Result)
             {
-                case clsFileResults.enFileResult.NotExist:
+                case clsFileResults.enFileResult.FileNotExist:
                     return new clsReturnResult(enResult.Error, "The file is not found.");
                 case clsFileResults.enFileResult.InvalidInputs:
                     return new clsReturnResult(enResult.Error, "Invalid date");

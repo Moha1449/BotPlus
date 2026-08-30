@@ -8,6 +8,6 @@ namespace BusinessLayer.AppStorage.FileResults
 {
     internal static class clsFileResults
     { 
-        internal enum enFileResult {Success,Error,InvalidInputs,NotExist,Empty}
+        internal enum enFileResult {Success,Error,InvalidInputs,FileNotExist,Empty,ItemNotFound }
     }
 }

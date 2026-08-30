@@ -43,7 +43,7 @@ namespace BusinessLayer.AppStorage.ConnectionConfiguration
             try
             {
                 if (!File.Exists(_ConnectionConfigPath))
-                    return (clsFileResults.enFileResult.NotExist, null);
+                    return (clsFileResults.enFileResult.FileNotExist, null);
 
                 string ConnectionAsJson = "";
 

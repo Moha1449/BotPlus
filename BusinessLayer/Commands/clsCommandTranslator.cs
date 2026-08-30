@@ -30,8 +30,9 @@ namespace BusinessLayer.Commands
             AppCommands += ", [Bot -s] [Gets the bot state is running or is stopped]";
             AppCommands += ", [Chat -s] [Run the chats handler engine.]";
             AppCommands += ", [Chat -c] [Close the chats handler engine.]";
-            AppCommands += ", [Message -a] [Add new chat template.]";
+            AppCommands += ", [Message -a,Message,Response] [Add new chat template.]";
             AppCommands += ", [Message -g] [Get the chats templates.]";
+            AppCommands += ", [Message -d,Template ID] [Deletes the chat templates by id.]";
             AppCommands += ", [Connection -a] [Updates or Renews the connection key.]";
             AppCommands += ", [Connection -g] [Gets the connection key.]";
 
@@ -51,6 +52,13 @@ namespace BusinessLayer.Commands
                 var MessageParts = Command.Split(',');
 
                 return await clsAppStorage.AddCustomerMessage(MessageParts[1], MessageParts[2]);
+            }
+
+            if(Command.Contains("message -d"))
+            {
+                var MessageParts = Command.Split(',');
+
+                return await clsAppStorage.DeleteChatTemplateByID(MessageParts[1]);
             }
 
             if(Command.Contains("Connection -a"))
