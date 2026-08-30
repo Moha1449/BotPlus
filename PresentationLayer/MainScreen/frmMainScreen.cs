@@ -16,5 +16,10 @@ namespace PresentationLayer
         {
             InitializeComponent();
         }
+
+        private void btSettings_Click(object sender, EventArgs e)
+        {
+            //coming soon
+        }
     }
 }

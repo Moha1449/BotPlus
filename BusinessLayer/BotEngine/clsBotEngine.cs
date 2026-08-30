@@ -23,6 +23,8 @@ namespace BusinessLayer.BotEngine
 
         private static bool _IsBotRunning = false;
 
+        private static int _MaxChatsPerQueue = 30;
+
 
         private static async Task<clsReturnResult> _BotBuilderAndRunner()
         {
@@ -144,7 +146,7 @@ namespace BusinessLayer.BotEngine
                 return LoadResult;
 
             if (_HandlerEngine == null)
-                _HandlerEngine = new clsChatsHandlerEngine(30, _Bot.ClientBot, _CancelChatsEngineSource.Token
+                _HandlerEngine = new clsChatsHandlerEngine(_MaxChatsPerQueue, _Bot.ClientBot, _CancelChatsEngineSource.Token
                     , ChatsTemplates.ToDictionary(key => key.Message, value => value.Response));
 
             else if (_HandlerEngine.IsEngineRunning)
@@ -174,7 +176,24 @@ namespace BusinessLayer.BotEngine
                 await clsErrorLogger.LogErrorAsync(ex.Message);
                 return new clsReturnResult(clsReturnResult.enResult.Error, "Error : " + ex.Message);
             }
+        }
 
+        internal static clsReturnResult GetMaxChatsPerQueue()
+        {
+            return new clsReturnResult(clsReturnResult.enResult.Success, $"Maximum chats per queue is {_MaxChatsPerQueue}.");
+        }
+
+        internal static clsReturnResult SetMaxChatsPerQueue(int amount)
+        {
+            if (amount <= 0)
+                return new clsReturnResult(clsReturnResult.enResult.Error, $"Invalid amount: {amount}");
+
+            _MaxChatsPerQueue = amount;
+
+            if (_HandlerEngine != null)
+                _HandlerEngine.ChatQueueMaxCapacity = amount;
+
+            return new clsReturnResult(clsReturnResult.enResult.Success, "Maximum chats per queue updated successfully.");
         }
     }
 }

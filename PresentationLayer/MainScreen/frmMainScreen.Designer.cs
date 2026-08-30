@@ -52,7 +52,7 @@
             this.btSettings.PressedState.ImageSize = new System.Drawing.Size(64, 64);
             this.btSettings.Size = new System.Drawing.Size(104, 84);
             this.btSettings.TabIndex = 0;
-            
+            this.btSettings.Click += new System.EventHandler(this.btSettings_Click);
             // 
             // pnMenu
             // 
@@ -82,7 +82,6 @@
             this.usCommandsScreen1.Name = "usCommandsScreen1";
             this.usCommandsScreen1.Size = new System.Drawing.Size(860, 702);
             this.usCommandsScreen1.TabIndex = 0;
-           
             // 
             // frmMainScreen
             // 

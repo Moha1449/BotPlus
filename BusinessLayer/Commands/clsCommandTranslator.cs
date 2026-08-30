@@ -11,7 +11,7 @@ namespace BusinessLayer.Commands
         public static async Task<clsReturnResult> Execute(string Command)
         {
             var Result = await AppStoragesCommands(Command);
-        
+
             if (!Result.Detail.Contains("Command is undefined."))
                 return Result;
 
@@ -30,6 +30,8 @@ namespace BusinessLayer.Commands
             AppCommands += ", [Bot -s] [Gets the bot state is running or is stopped]";
             AppCommands += ", [Chat -s] [Run the chats handler engine.]";
             AppCommands += ", [Chat -c] [Close the chats handler engine.]";
+            AppCommands += ", [Chat -q,Amount] [Set max chats for handling per queue.]";
+            AppCommands += ", [Chat -q] [Gets max chats for handling per queue.]";
             AppCommands += ", [Message -a,Message,Response] [Add new chat template.]";
             AppCommands += ", [Message -g] [Get the chats templates.]";
             AppCommands += ", [Message -d,Template ID] [Deletes the chat templates by id.]";
@@ -41,7 +43,7 @@ namespace BusinessLayer.Commands
 
 
         private static async Task<clsReturnResult> AppStoragesCommands(string Command)
-        { 
+        {
             if (Command.Contains("message -g"))
             {
                 return await clsAppStorage.GetChatsTemplates();
@@ -54,19 +56,19 @@ namespace BusinessLayer.Commands
                 return await clsAppStorage.AddCustomerMessage(MessageParts[1], MessageParts[2]);
             }
 
-            if(Command.Contains("message -d"))
+            if (Command.Contains("message -d"))
             {
                 var MessageParts = Command.Split(',');
 
                 return await clsAppStorage.DeleteChatTemplateByID(MessageParts[1]);
             }
 
-            if(Command.Contains("Connection -a"))
+            if (Command.Contains("Connection -a"))
             {
                 return await clsAppStorage.ConnectionKeySetter(Command.Substring(14));
             }
 
-            if( Command == "Connection -g")
+            if (Command == "Connection -g")
             {
                 return await clsAppStorage.GetConnectionAsSting();
             }
@@ -78,6 +80,16 @@ namespace BusinessLayer.Commands
         private static async Task<clsReturnResult> BotEngineCommands(string Command)
         {
             string CommandLower = Command.ToLower();
+
+            if (CommandLower.Contains("chat -q,"))
+            {
+                var Strings = CommandLower.Split(',');
+
+                if (int.TryParse(Strings[1], out int result))
+                    return clsBotEngine.SetMaxChatsPerQueue(result);
+
+                return new clsReturnResult(clsReturnResult.enResult.Error, "The inputs is not a number.");
+            }
 
             switch (CommandLower)
             {
@@ -97,6 +109,8 @@ namespace BusinessLayer.Commands
                     return await clsBotEngine.RunTheChatsHandlerEngine();
                 case "chat -c":
                     return await clsBotEngine.CloseTheChatsHandlerEngine();
+                case "chat -q":
+                    return clsBotEngine.GetMaxChatsPerQueue();
                 default:
                     return new clsReturnResult(clsReturnResult.enResult.Error, "Command is undefined.");
             }
