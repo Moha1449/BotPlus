@@ -40,8 +40,8 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\PresentationLayer\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\PresentationLayer\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\PresentationLayer\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -57,24 +57,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppStorage\clsAppStorage.cs" />
-    <Compile Include="AppStorage\Messages\clsChatsTemplatesStoarge.cs" />
+    <Compile Include="BotEngine\clsBotNode.cs" />
+    <Compile Include="BotEngine\clsStoppedHandlersLogger.cs" />
     <Compile Include="Commands\clsCommandTranslator.cs" />
-    <Compile Include="AppStorage\ConnectionConfig\clsConnectionConfiguration.cs" />
-    <Compile Include="AppStorage\FileResults\clsFileResults.cs" />
-    <Compile Include="DataModels\clsBotData.cs" />
-    <Compile Include="DataModels\clsConnection.cs" />
     <Compile Include="BotEngine\clsBotEngine.cs" />
-    <Compile Include="DataModels\clsChatTemplate.cs" />
-    <Compile Include="ErrorHandler\clsErrorLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BotEngine\clsBotClient.cs" />
     <Compile Include="BotEngine\clsChatsHandlerEngine.cs" />
-    <Compile Include="ReturnResult\clsReturnResult.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BotPlusDataLayer\BotPlusDataLayer.csproj">
+      <Project>{e309c39e-ad49-4499-a821-1a2b364554d4}</Project>
+      <Name>BotPlusDataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataModelLayer\DataModelLayer.csproj">
+      <Project>{8f085df1-18ea-4998-8e31-171bdde88c18}</Project>
+      <Name>DataModelLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

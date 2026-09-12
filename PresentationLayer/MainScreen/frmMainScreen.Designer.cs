@@ -28,36 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainScreen));
-            this.btSettings = new Guna.UI2.WinForms.Guna2ImageButton();
             this.pnMenu = new System.Windows.Forms.Panel();
             this.pnScreenContainer = new System.Windows.Forms.Panel();
             this.usCommandsScreen1 = new PresentationLayer.MainScreen.usCommandsScreen();
-            this.pnMenu.SuspendLayout();
             this.pnScreenContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btSettings
-            // 
-            this.btSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSettings.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btSettings.HoverState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btSettings.Image = ((System.Drawing.Image)(resources.GetObject("btSettings.Image")));
-            this.btSettings.ImageOffset = new System.Drawing.Point(0, 0);
-            this.btSettings.ImageRotate = 0F;
-            this.btSettings.Location = new System.Drawing.Point(-3, 584);
-            this.btSettings.Name = "btSettings";
-            this.btSettings.PressedState.ImageSize = new System.Drawing.Size(64, 64);
-            this.btSettings.Size = new System.Drawing.Size(104, 84);
-            this.btSettings.TabIndex = 0;
-            this.btSettings.Click += new System.EventHandler(this.btSettings_Click);
             // 
             // pnMenu
             // 
             this.pnMenu.BackColor = System.Drawing.Color.Black;
-            this.pnMenu.Controls.Add(this.btSettings);
             this.pnMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnMenu.Location = new System.Drawing.Point(0, 0);
             this.pnMenu.Name = "pnMenu";
@@ -95,15 +74,12 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BotPlus";
-            this.pnMenu.ResumeLayout(false);
             this.pnScreenContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2ImageButton btSettings;
         private System.Windows.Forms.Panel pnMenu;
         private System.Windows.Forms.Panel pnScreenContainer;
         private MainScreen.usCommandsScreen usCommandsScreen1;

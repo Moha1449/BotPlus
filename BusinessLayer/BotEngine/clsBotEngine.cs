@@ -1,199 +1,146 @@
-﻿using BusinessLayer.AppStorage;
-using BusinessLayer.ErrorHandler;
-using BusinessLayer.ReturnResult;
-using System;
-using System.Linq;
-using System.Threading;
+﻿using DataLayer.DataProviders;
+using DataModelLayer.ReturnResult;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Telegram.Bot.Exceptions;
 
 namespace BusinessLayer.BotEngine
 {
     public static class clsBotEngine
     {
+        private static Dictionary<int, clsBotNode> _BotsNodesList = new Dictionary<int, clsBotNode>();
 
-        private static clsBotClient _Bot = null;
-
-
-        private static CancellationTokenSource _CancelChatsEngineSource = new CancellationTokenSource();
+        private static int _NextNodeID = 1;
 
 
-        private static clsChatsHandlerEngine _HandlerEngine = null;
-
-
-        private static bool _IsBotRunning = false;
-
-        private static int _MaxChatsPerQueue = 30;
-
-
-        private static async Task<clsReturnResult> _BotBuilderAndRunner()
+        //Bot Node Controller Methods
+        internal static async Task<clsReturnResult> CreateNewBotNode(string NodeName, string ConnectionID, string ChatTemplatesID)
         {
-            (var GetResult, var Connection) = await clsAppStorage.GetConnectionAndItObject();
+            var (GetConnectionResult, ConnectionObject) = await clsConnectionDataProvider.GetConnectionByID(ConnectionID);
 
-            if (GetResult.Result == clsReturnResult.enResult.Success)
-            {
-                _Bot = new clsBotClient(Connection.Key);
-                return await _Bot.ConnectTheBot();
-            }
+            if (GetConnectionResult.Result != clsReturnResult.enResult.Success)
+                return GetConnectionResult;
 
-            return GetResult;
+            var (GetChatTemplatesResult, ChatTemplates) = await clsChatsTemplatesDataProvider.GetChatTemplateByID(ChatTemplatesID);
+
+            if (GetChatTemplatesResult.Result != clsReturnResult.enResult.Success)
+                return GetChatTemplatesResult;
+
+            var (CreationResult, NewNode) = await clsBotNode.CreateNode(_NextNodeID, ConnectionObject.Key, NodeName, 30, ChatTemplates,
+                _ChatHandlerStoppedEventHandler);
+
+            if (CreationResult.Result != clsReturnResult.enResult.Success)
+                return CreationResult;
+
+            _BotsNodesList.Add(_NextNodeID, NewNode);
+            _NextNodeID++;
+
+            return CreationResult;
         }
 
-        public static async Task<clsReturnResult> RunBot()
+        internal static clsReturnResult DeleteNodeByID(int ID)
         {
-            if (_IsBotRunning)
-                return new clsReturnResult(clsReturnResult.enResult.Success,
-                   "Bot is already connected.");
+            if (_BotsNodesList.Count == 0)
+                return new clsReturnResult(clsReturnResult.enResult.InvalidInputs, "Bot Engine Execution : There Is No Node Was Created.");
 
-            var RunResult = await _BotBuilderAndRunner();
+            if (!_BotsNodesList.ContainsKey(ID))
+                return new clsReturnResult(clsReturnResult.enResult.NotFound, "Bot Engine Execution : Node Is Not Found.");
 
-            _IsBotRunning = (RunResult.Result == clsReturnResult.enResult.Success);
+            var CleanResult = _BotsNodesList[ID].Dispose();
 
-            return RunResult;
+            if (CleanResult.Result != clsReturnResult.enResult.Success)
+                return CleanResult;
+
+            return (_BotsNodesList.Remove(ID)) ? new clsReturnResult(clsReturnResult.enResult.Success, $"Bot Engine Execution : Node With Id {ID} Is Deleted") :
+                new clsReturnResult(clsReturnResult.enResult.Error, $"Bot Engine Execution : Something Went Wrong.Unknown Error.");
         }
 
-        private static void _ResetBot()
+        internal static clsReturnResult StartHandlingChatsForBot(int botNodeID)
         {
-            _Bot = null;
-            _IsBotRunning = false;
+            if (_BotsNodesList.Count == 0)
+                return new clsReturnResult(clsReturnResult.enResult.InvalidInputs, "Bot Engine Execution : There Is No Node Was Created.");
+
+            if (!_BotsNodesList.ContainsKey(botNodeID))
+                return new clsReturnResult(clsReturnResult.enResult.NotFound, "Bot Engine Execution : Node Is Not Found.");
+
+            return _BotsNodesList[botNodeID].RunChatsHandler();
+        }
+
+        internal static clsReturnResult GetBotNodeInfoByNodeID(int NodeID)
+        {
+            if (_BotsNodesList.Count == 0)
+                return new clsReturnResult(clsReturnResult.enResult.InvalidInputs, "Bot Engine Execution : There Is No Node Was Created.");
+
+            if (!_BotsNodesList.ContainsKey(NodeID))
+                return new clsReturnResult(clsReturnResult.enResult.NotFound, "Bot Engine Execution : Node Is Not Found.");
+
+            return new clsReturnResult(clsReturnResult.enResult.Success,
+                $"Bot Engine Execution : Node Data : [Name : {_BotsNodesList[NodeID].BotNodeConfig.NodeName}, " +
+                $"Used Chat Template ID : {_BotsNodesList[NodeID].BotNodeConfig.ChatTemplateID}]");
+        }
+
+        internal static clsReturnResult GetBotInfoByNodeID(int NodeID)
+        {
+            if (_BotsNodesList.Count == 0)
+                return new clsReturnResult(clsReturnResult.enResult.InvalidInputs, "Bot Engine Execution : There Is No Node Was Created.");
+
+            if (!_BotsNodesList.ContainsKey(NodeID))
+                return new clsReturnResult(clsReturnResult.enResult.NotFound, "Bot Engine Execution : Node Is Not Found.");
+
+            return new clsReturnResult(clsReturnResult.enResult.Success,
+                $"Bot Engine Execution : Bot Data : [User Name : {_BotsNodesList[NodeID].BotInfo.Username}, " +
+                $"First Name : {_BotsNodesList[NodeID].BotInfo.FirstName}," +
+                $"lAST Name : {_BotsNodesList[NodeID].BotInfo.LastName}]");
+        }
+
+        internal static clsReturnResult CloseTheChatsHandlerEngine(int ID)
+        {
+            if (_BotsNodesList.Count == 0)
+                return new clsReturnResult(clsReturnResult.enResult.InvalidInputs, "Bot Engine Execution : There Is No Node Was Created.");
+
+            if (!_BotsNodesList.ContainsKey(ID))
+                return new clsReturnResult(clsReturnResult.enResult.NotFound, "Bot Engine Execution : Node Is Not Found.");
+
+            return _BotsNodesList[ID].CloseChatsHandler();
+        }
+
+        internal static clsReturnResult UpdateTheHandlerEngineQueueCapacityForNodeByNodeID(int NodeID, int Capacity)
+        {
+            if (_BotsNodesList.Count == 0)
+                return new clsReturnResult(clsReturnResult.enResult.InvalidInputs, "Bot Engine Execution : There Is No Node Was Created.");
+
+            if (!_BotsNodesList.ContainsKey(NodeID))
+                return new clsReturnResult(clsReturnResult.enResult.NotFound, "Bot Engine Execution : Node Is Not Found.");
+
+            return _BotsNodesList[NodeID].UpdateCapacityOfChatQueue(Capacity);
+        }
+
+        private static void _ChatHandlerStoppedEventHandler(clsReturnResult Detail)
+        {
+            clsStoppedHandlersLogger.LogNew(Detail);
+        }
+
+        internal static clsReturnResult GetBotNodeChatQueueMaxCapacity(int NodeID)
+        {
+            if (_BotsNodesList.Count == 0)
+                return new clsReturnResult(clsReturnResult.enResult.InvalidInputs, "Bot Engine Execution : There Is No Node Was Created.");
+
+            if (!_BotsNodesList.ContainsKey(NodeID))
+                return new clsReturnResult(clsReturnResult.enResult.NotFound, "Bot Engine Execution : Node Is Not Found.");
+
+            return _BotsNodesList[NodeID].GetChatsQueueMaxCapacity();
         }
 
 
-        public static async Task<clsReturnResult> Close()
+        //Logger
+        internal static List<clsReturnResult> GetStoppedChatsHandlersEnginesDetails()
         {
-            if (_Bot == null)
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected");
 
-            if (_HandlerEngine != null && _HandlerEngine.IsEngineRunning)
-            {
-                _CancelChatsEngineSource?.Cancel();
-                _CancelChatsEngineSource?.Dispose();
-
-                _RenewChatsHandlers();
-            }
-
-            var CloseResult = await _Bot.CloseConnection();
-            _ResetBot();
-
-            return CloseResult;
+            return clsStoppedHandlersLogger.GetLog();
         }
 
-        public static clsReturnResult BotStatus()
+        public static int GetLogsCount()
         {
-            return new clsReturnResult(clsReturnResult.enResult.Success, (_IsBotRunning) ? "Bot is connected." :
-                "Bot is not connected.");
-        }
-
-        public static bool IsBoRunning()
-        {
-            return _IsBotRunning;
-        }
-
-        public static async Task<clsReturnResult> GetBotCommands()
-        {
-            if (!_IsBotRunning)
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected.");
-
-            (var GetResult, var Commands) = await _Bot.GetMyCommands();
-
-            if (GetResult.Result == clsReturnResult.enResult.Success)
-            {
-                Func<string> BotCommandsToString = () =>
-                {
-                    string CommandsAsString = "";
-
-                    foreach (var command in Commands)
-                        CommandsAsString += $"[Command : {command.Command}] [Description : {command.Description}] ";
-
-
-                    return CommandsAsString; ;
-                };
-
-                return new clsReturnResult(GetResult.Result, "Commands : " + BotCommandsToString() + '.');
-            }
-
-            return GetResult;
-        }
-
-        internal static async Task<clsReturnResult> GetBotData()
-        {
-            if (!_IsBotRunning)
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected.");
-
-            (var GetResult, var BotData) = await _Bot.GetMyInfo();
-
-            if (GetResult.Result == clsReturnResult.enResult.Success)
-                return new clsReturnResult(GetResult.Result, "Bot Data : " +
-                    $"[Name : {BotData.BotName}] [Description : {BotData.BotDescription}].");
-
-            return GetResult;
-        }
-
-        private static void _RenewChatsHandlers()
-        {
-            _CancelChatsEngineSource = new CancellationTokenSource();
-            _HandlerEngine = null;
-        }
-
-        internal static async Task<clsReturnResult> RunTheChatsHandlerEngine()
-        {
-            if (!_IsBotRunning)
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Bot is not connected.");
-
-            (var LoadResult, var ChatsTemplates) = await clsAppStorage.GetChatsTemplatesAsList();
-
-            if (LoadResult.Result != clsReturnResult.enResult.Success)
-                return LoadResult;
-
-            if (_HandlerEngine == null)
-                _HandlerEngine = new clsChatsHandlerEngine(_MaxChatsPerQueue, _Bot.ClientBot, _CancelChatsEngineSource.Token
-                    , ChatsTemplates.ToDictionary(key => key.Message, value => value.Response));
-
-            else if (_HandlerEngine.IsEngineRunning)
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Chats handler engine is already running.");
-
-
-            return await _HandlerEngine.EngineRunner();
-        }
-
-        internal static async Task<clsReturnResult> CloseTheChatsHandlerEngine()
-        {
-            if (_HandlerEngine == null || !_HandlerEngine.IsEngineRunning || !_IsBotRunning)
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Chats handler engine is off.");
-
-            try
-            {
-                _CancelChatsEngineSource?.Cancel();
-                _CancelChatsEngineSource?.Dispose();
-
-                //After closing the chats handler renew the cancelation source to make user able to run it again
-                _RenewChatsHandlers();
-
-                return new clsReturnResult(clsReturnResult.enResult.Success, "Chats Engine is stopped.");
-            }
-            catch (ApiRequestException ex)
-            {
-                await clsErrorLogger.LogErrorAsync(ex.Message);
-                return new clsReturnResult(clsReturnResult.enResult.Error, "Error : " + ex.Message);
-            }
-        }
-
-        internal static clsReturnResult GetMaxChatsPerQueue()
-        {
-            return new clsReturnResult(clsReturnResult.enResult.Success, $"Maximum chats per queue is {_MaxChatsPerQueue}.");
-        }
-
-        internal static clsReturnResult SetMaxChatsPerQueue(int amount)
-        {
-            if (amount <= 0)
-                return new clsReturnResult(clsReturnResult.enResult.Error, $"Invalid amount: {amount}");
-
-            _MaxChatsPerQueue = amount;
-
-            if (_HandlerEngine != null)
-                _HandlerEngine.ChatQueueMaxCapacity = amount;
-
-            return new clsReturnResult(clsReturnResult.enResult.Success, "Maximum chats per queue updated successfully.");
+            return clsStoppedHandlersLogger.LogsNumber();
         }
     }
 }

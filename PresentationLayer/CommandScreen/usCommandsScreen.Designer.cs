@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbCommandBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.btRunCommand = new Guna.UI2.WinForms.Guna2Button();
             this.lbTitle = new System.Windows.Forms.Label();
             this.pnTitles = new System.Windows.Forms.Panel();
-            this.lbBotState = new System.Windows.Forms.Label();
             this.pnCommandScreenControllers = new System.Windows.Forms.Panel();
             this.pnCommandsScreenContainer = new Guna.UI2.WinForms.Guna2Panel();
             this.tbCommandsStatesBox = new Guna.UI2.WinForms.Guna2TextBox();
+            this.tmLoggerChecker = new System.Windows.Forms.Timer(this.components);
             this.pnTitles.SuspendLayout();
             this.pnCommandScreenControllers.SuspendLayout();
             this.pnCommandsScreenContainer.SuspendLayout();
@@ -105,25 +106,12 @@
             // 
             // pnTitles
             // 
-            this.pnTitles.Controls.Add(this.lbBotState);
             this.pnTitles.Controls.Add(this.lbTitle);
             this.pnTitles.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnTitles.Location = new System.Drawing.Point(0, 0);
             this.pnTitles.Name = "pnTitles";
             this.pnTitles.Size = new System.Drawing.Size(769, 78);
             this.pnTitles.TabIndex = 4;
-            // 
-            // lbBotState
-            // 
-            this.lbBotState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbBotState.AutoSize = true;
-            this.lbBotState.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBotState.ForeColor = System.Drawing.Color.Red;
-            this.lbBotState.Location = new System.Drawing.Point(584, 25);
-            this.lbBotState.Name = "lbBotState";
-            this.lbBotState.Size = new System.Drawing.Size(171, 32);
-            this.lbBotState.TabIndex = 4;
-            this.lbBotState.Text = "Bot Stopped";
             // 
             // pnCommandScreenControllers
             // 
@@ -172,6 +160,11 @@
             this.tbCommandsStatesBox.Size = new System.Drawing.Size(736, 394);
             this.tbCommandsStatesBox.TabIndex = 0;
             // 
+            // tmLoggerChecker
+            // 
+            this.tmLoggerChecker.Interval = 10000;
+            this.tmLoggerChecker.Tick += new System.EventHandler(this.tmLoggerChecker_Tick);
+            // 
             // usCommandsScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -182,6 +175,7 @@
             this.Controls.Add(this.pnTitles);
             this.Name = "usCommandsScreen";
             this.Size = new System.Drawing.Size(769, 620);
+            this.Load += new System.EventHandler(this.usCommandsScreen_Load);
             this.pnTitles.ResumeLayout(false);
             this.pnTitles.PerformLayout();
             this.pnCommandScreenControllers.ResumeLayout(false);
@@ -195,9 +189,9 @@
         private Guna.UI2.WinForms.Guna2Button btRunCommand;
         private System.Windows.Forms.Label lbTitle;
         private System.Windows.Forms.Panel pnTitles;
-        private System.Windows.Forms.Label lbBotState;
         private System.Windows.Forms.Panel pnCommandScreenControllers;
         private Guna.UI2.WinForms.Guna2Panel pnCommandsScreenContainer;
         private Guna.UI2.WinForms.Guna2TextBox tbCommandsStatesBox;
+        private System.Windows.Forms.Timer tmLoggerChecker;
     }
 }
